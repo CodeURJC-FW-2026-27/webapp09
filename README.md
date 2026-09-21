@@ -268,4 +268,5 @@ This page will allow users to select two components and check whether they are c
 
 # Project Preview
 
-![PC Parts Catalog](image)
+![Vista previa del proyecto](images/canvas.png)
+
