@@ -105,8 +105,6 @@ Gaming PC
 
 The components are associated with the computer to which they belong.
 
-Each `Component` can also contain several `Technical Specification` objects with additional information about its characteristics.
-
 ## Images
 
 Each object of the `Computer` entity will have at least one image representing the computer.
@@ -114,8 +112,6 @@ Each object of the `Computer` entity will have at least one image representing t
 The images will be displayed both in the main catalog and on the computer detail page.
 
 Components will also have an image representing the hardware component.
-
-The `Technical Specification` entity will not have associated images.
 
 ## Search and Categorization
 
@@ -188,34 +184,18 @@ RAM → DDR5
 ✓ Compatible
 ```
 
-### GPU ↔ Motherboard
 
-The system will check the PCIe interface compatibility between the GPU and the motherboard.
+# Computer Management
 
-Because PCIe compatibility can involve many different technical cases, the project will use a simplified compatibility rule. Components with the same PCIe version will be considered compatible, as well as components with a difference of one PCIe generation.
-
-Other cases will be considered incompatible within the scope of this application.
-
-### GPU ↔ PSU
-
-The system will check whether the PSU provides sufficient power for the GPU.
-
-A PSU with insufficient power will be considered incompatible with the selected GPU.
-
-If a compatibility check fails, the application will inform the user which compatibility check failed.
-
-# Component Management
-
-The application will allow users to manage the components stored in the catalog.
+The application will allow users to manage the computers stored in the catalog.
 
 The following operations will be available:
 
-* **Create:** Add a new component to the catalog.
-* **Modify:** Update the information of an existing component.
-* **Delete:** Remove an existing component.
-* **Modify Image:** Replace the image associated with a component.
+* **Create:** Add a new computer to the catalog.
+* **Modify:** Update the information of an existing computer.
+* **Delete:** Remove an existing computer.
+* **Modify Image:** Replace the image associated with a computer.
 
-Technical specifications associated with a component will also be managed through the component information.
 
 # Example of Use
 
@@ -256,8 +236,6 @@ Gaming PC
 
 The application would display the corresponding computer. The user could then access its detail page and view all its information and the components included in the build.
 
-The user could also access the **Compatibility Checker** and compare the components of the computer according to the compatibility rules defined by the application.
-
 # Application Structure
 
 The application will consist of several main pages:
@@ -277,14 +255,6 @@ This page will display the complete information of a selected computer, includin
 ### Component Detail Page
 
 This page will display the complete information of a selected component, including its technical specifications.
-
-### Component Management Page
-
-This page will allow users to create, modify, and delete components.
-
-### Compatibility Checker Page
-
-This page will allow users to select two components and check whether they are compatible according to the compatibility rules implemented in the application.
 
 # Project Preview
 
