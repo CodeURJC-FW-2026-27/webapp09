@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Model</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --dark: #172033;
+      --light: #f5f7fb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; color: var(--dark); background: var(--light); line-height: 1.6; }
+    header { background: white; border-bottom: 1px solid #e5e7eb; }
+    nav { max-width: 1100px; margin: auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { color: var(--primary); font-size: 1.4rem; font-weight: bold; }
+    nav ul { display: flex; gap: 1.5rem; list-style: none; }
+    nav a { color: var(--dark); text-decoration: none; }
+    nav a:hover { color: var(--primary); }
+    .hero { max-width: 1100px; margin: auto; padding: 6rem 1.5rem; text-align: center; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); margin-bottom: 1rem; }
+    .hero p { max-width: 650px; margin: 0 auto 2rem; color: #526071; }
+    .button { display: inline-block; padding: .8rem 1.4rem; border-radius: .5rem; background: var(--primary); color: white; text-decoration: none; }
+    section { max-width: 1100px; margin: auto; padding: 3rem 1.5rem; }
+    section h2 { text-align: center; margin-bottom: 2rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+    .card { background: white; padding: 1.5rem; border-radius: .75rem; box-shadow: 0 4px 15px #17203312; }
+    .card h3 { margin-bottom: .5rem; }
+    .card p { color: #526071; }
+    footer { margin-top: 3rem; padding: 1.5rem; text-align: center; background: var(--dark); color: white; }
+    @media (max-width: 600px) { nav ul { gap: .7rem; font-size: .9rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <div class="logo">BrandName</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <h1>Build something great</h1>
+      <p>A clean, responsive starting point for your next website. Customize this template to match your project.</p>
+      <a class="button" href="#features">Explore features</a>
+    </section>
+
+    <section id="features">
+      <h2>Why choose us?</h2>
+      <div class="cards">
+        <article class="card"><h3>Simple</h3><p>Focused design that is easy to understand and use.</p></article>
+        <article class="card"><h3>Responsive</h3><p>Looks great on phones, tablets, and desktop screens.</p></article>
+        <article class="card"><h3>Flexible</h3><p>Adapt the structure and content to your own needs.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">&copy; 2026 BrandName. All rights reserved.</footer>
+</body>
+</html>
