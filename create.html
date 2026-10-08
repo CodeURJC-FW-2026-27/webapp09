@@ -1,107 +1,217 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Build your PC</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <!-- Template CSS (incluye Bootstrap 5.2.3) -->
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- Estilos propios -->
+    <link href="css/custom.css" rel="stylesheet">
 </head>
-
-<body>
-    <header>
-        <h1>Build your PC</h1>
-        <h2>(Disclaimer, the PC wont be sent built, we offer the parts individually so manual assembly is required)</h2>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">PC Parts Catalog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="create.html">Build your PC</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="bg-dark py-4">
+        <div class="container px-4 px-lg-5">
+            <h1 class="display-6 fw-bolder text-white">Build your PC</h1>
+            <p class="text-white-50 mb-0">(Disclaimer, the PC wont be sent built, we offer the parts individually so manual assembly is required)</p>
+        </div>
     </header>
 
-    <main>
+    <main class="container px-4 px-lg-5 my-5 flex-grow-1">
+        <div class="row g-4">
 
-        <section class="componente">
-            <h2>CPU</h2>
-            <div class="opciones">
-                <div class="opcion">
-                    <p>Option 1 (brand X)</p>
-                    <button type="button">Seleccionar</button>
+            <section class="col-lg-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-4 pb-2 border-bottom border-2">CPU</h2>
+                        <div class="row row-cols-1 row-cols-sm-2 g-3">
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 1 (brand X)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 2 (brand Y)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 3 (brand Z)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 4 (brand W)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="opcion">
-                    <p>Option 2 (brand Y)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 3 (brand Z)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 4 (brand W)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-            </div>
-        </section>
-        <section class="componente">
-            <h2>GPU</h2>
-            <div class="opciones">
-                <div class="opcion">
-                    <p>Option 1 (brand X)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 2 (brand Y)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 3 (brand Z)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 4 (brand W)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-            </div>
-        </section>
-        <section class="componente">
-            <h2>Motherboard</h2>
-            <div class="opciones">
-                <div class="opcion">
-                    <p>Option 1 (brand X)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 2 (brand Y)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 3 (brand Z)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 4 (brand W)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-            </div>
-        </section>
-        <section class="componente">
-            <h2>RAM</h2>
-            <div class="opciones">
-                <div class="opcion">
-                    <p>Option 1 (brand X)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 2 (brand Y)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 3 (brand Z)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-                <div class="opcion">
-                    <p>Option 4 (brand W)</p>
-                    <button type="button">Seleccionar</button>
-                </div>
-            </div>
-        </section>
+            </section>
 
+            <section class="col-lg-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-4 pb-2 border-bottom border-2">GPU</h2>
+                        <div class="row row-cols-1 row-cols-sm-2 g-3">
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 1 (brand X)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 2 (brand Y)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 3 (brand Z)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 4 (brand W)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-lg-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-4 pb-2 border-bottom border-2">Motherboard</h2>
+                        <div class="row row-cols-1 row-cols-sm-2 g-3">
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 1 (brand X)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 2 (brand Y)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 3 (brand Z)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 4 (brand W)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-lg-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-4 pb-2 border-bottom border-2">RAM</h2>
+                        <div class="row row-cols-1 row-cols-sm-2 g-3">
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 1 (brand X)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 2 (brand Y)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 3 (brand Z)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <p>Option 4 (brand W)</p>
+                                        <button type="button" class="btn btn-outline-dark w-100">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
-    
-</body>
 
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">&copy; 2026 PC Parts Catalog. All rights reserved.</p></div>
+    </footer>
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS -->
+    <script src="js/scripts.js"></script>
+</body>
 </html>
