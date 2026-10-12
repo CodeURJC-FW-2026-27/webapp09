@@ -260,3 +260,17 @@ This page will display the complete information of a selected component, includi
 
 ![Project Preview](images/canvas.png)
 
+# Practica 1
+
+### 14/10/2026
+
+## Team Members
+
+| Name                             | Contributions                                                                                                        | 
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------|
+| **Pablo Montes Gilete**          | Worked in index.html structure, bootstrap and general structure of the web.                                          | 
+| **Yoel Alejandro Adán González** | Created details.html, fixed style.css and gave emotianal support to all members                                      |   
+| **Alvaro Pastrana Lopez**        | Created the create.html, fixed descriptions and photos of index.html and desing the footer and head of each page.    |
+
+## Github most relevant commits
+
