@@ -224,9 +224,6 @@ This page will display the complete information of a selected computer, includin
 
 This page will display the complete information of a selected component, including its technical specifications.
 
-# Project Preview
-
-![Project Preview](images/canvas.png)
 
 # Practica 1
 
@@ -250,6 +247,7 @@ This page will display the complete information of a selected component, includi
  
  
  **Yoel Alejandro Adán González**
+ 
  **Alvaro Pastrana Lopez**
  * **`ddd86c6`** — [Added pc descriptions] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/ddd86c65d63b893ffa977e723d4db0b23810919f]) •
 
