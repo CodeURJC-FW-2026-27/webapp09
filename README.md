@@ -260,14 +260,21 @@ This page will display the complete information of a selected component, includi
 * **`ba1583e`** — [Fixed the footer on create] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/ba1583e2c40160ed35ac9ac07a65fbb7fe300f58]) •
 
 ## Practica 1 preview
-<img width="1398" height="793" alt="Captura de pantalla 2026-10-12 130546" src="https://github.com/user-attachments/assets/e2d55761-4b43-4878-a466-c08889cad2cd" />
-<img width="1332" height="806" alt="Captura de pantalla 2026-10-12 130533" src="https://github.com/user-attachments/assets/09334f83-2f08-433f-adf9-afe2eabe85bc" />
-<img width="1410" height="640" alt="Captura de pantalla 2026-10-12 130517" src="https://github.com/user-attachments/assets/511190b5-b33b-4c58-8fd7-7a60cf7f4d37" />
-<img width="1395" height="822" alt="Captura de pantalla 2026-10-12 130507" src="https://github.com/user-attachments/assets/3c7f74b3-00aa-4cae-8378-a4b1b72b38e5" />
-<img width="1430" height="800" alt="Captura de pantalla 2026-10-12 130450" src="https://github.com/user-attachments/assets/91fe6b3f-1d75-4cfd-a53b-690d4a4c781e" />
-<img width="1440" height="812" alt="Captura de pantalla 2026-10-12 130436" src="https://github.com/user-attachments/assets/3df77e66-47ab-45a4-9bee-6acdb1bbc3d0" />
-<img width="1452" height="816" alt="Captura de pantalla 2026-10-12 130419" src="https://github.com/user-attachments/assets/0079595f-551f-49f8-b5e8-021dd9bf25b5" />
 <img width="1446" height="792" alt="Captura de pantalla 2026-10-12 130406" src="https://github.com/user-attachments/assets/61ffa42c-a9fa-45bc-8359-48da10760d8a" />
+<img width="1452" height="816" alt="Captura de pantalla 2026-10-12 130419" src="https://github.com/user-attachments/assets/0079595f-551f-49f8-b5e8-021dd9bf25b5" />
+<img width="1440" height="812" alt="Captura de pantalla 2026-10-12 130436" src="https://github.com/user-attachments/assets/3df77e66-47ab-45a4-9bee-6acdb1bbc3d0" />
+<img width="1430" height="800" alt="Captura de pantalla 2026-10-12 130450" src="https://github.com/user-attachments/assets/91fe6b3f-1d75-4cfd-a53b-690d4a4c781e" />
+<img width="1395" height="822" alt="Captura de pantalla 2026-10-12 130507" src="https://github.com/user-attachments/assets/3c7f74b3-00aa-4cae-8378-a4b1b72b38e5" />
+<img width="1410" height="640" alt="Captura de pantalla 2026-10-12 130517" src="https://github.com/user-attachments/assets/511190b5-b33b-4c58-8fd7-7a60cf7f4d37" />
+<img width="1332" height="806" alt="Captura de pantalla 2026-10-12 130533" src="https://github.com/user-attachments/assets/09334f83-2f08-433f-adf9-afe2eabe85bc" />
+<img width="1398" height="793" alt="Captura de pantalla 2026-10-12 130546" src="https://github.com/user-attachments/assets/e2d55761-4b43-4878-a466-c08889cad2cd" />
+
+
+
+
+
+
+
 
    
 
