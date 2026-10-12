@@ -247,6 +247,11 @@ This page will display the complete information of a selected component, includi
  
  
  **Yoel Alejandro Adán González**
+* **`e080fdc`** — [Creation of the details.html] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/e080fdca97f84c66572ab6896ef6c75efe48235e]) • 
+* **`7c16fe6`** — [Add "View Details" links for each PC and create a new HTML file for create a PC] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/7c16fe66f39907008ae4ae3cd78935cf7d154d52]) • 
+* **`e897baa`** — [Modified the structure of the divs, created images of the first PC] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/e897baa954feb75c88d026fd8742f55e5d4c7b87]) • 
+* **`22f01c5`** — [Enhance details page with component cards] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/22f01c5583056d52d2798e1a0889e624a8232b20]) • 
+
  
  **Alvaro Pastrana Lopez**
  * **`ddd86c6`** — [Added pc descriptions] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/ddd86c65d63b893ffa977e723d4db0b23810919f]) •
