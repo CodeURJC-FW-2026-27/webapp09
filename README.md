@@ -251,6 +251,14 @@ This page will display the complete information of a selected component, includi
  
  **Yoel Alejandro Adán González**
  **Alvaro Pastrana Lopez**
+ * **`ddd86c6`** — [Added pc descriptions] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/ddd86c65d63b893ffa977e723d4db0b23810919f]) •
+
+ * **`0951881`** — [Creation of the create.html] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/09518818507e6646f93209d06474df7346c2ecfe]) •
+
+ * **`9cdb552`** — [Remade the whole create] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/9cdb55244c51db15ed8357c50962148b9a2ae74f]) •
+
+* **`ba1583e`** — [Fixed the footer on create] ([https://github.com/CodeURJC-FW-2026-27/webapp09/commit/ba1583e2c40160ed35ac9ac07a65fbb7fe300f58]) •
+
 ## Practica 1 preview
 <img width="1398" height="793" alt="Captura de pantalla 2026-10-12 130546" src="https://github.com/user-attachments/assets/e2d55761-4b43-4878-a466-c08889cad2cd" />
 <img width="1332" height="806" alt="Captura de pantalla 2026-10-12 130533" src="https://github.com/user-attachments/assets/09334f83-2f08-433f-adf9-afe2eabe85bc" />
