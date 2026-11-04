@@ -84,10 +84,7 @@ color:blue;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
->>>>>>> 3886e4800895e33dd0aa798cab8b9dc8231c34c8
 
-<<<<<<< HEAD
-=======
 *,
 *::before,
 *::after {
@@ -393,6 +390,7 @@ button,
 [type=reset],
 [type=submit] {
   -webkit-appearance: button;
+  appearance: button;
 }
 button:not(:disabled),
 [type=button]:not(:disabled),
@@ -451,6 +449,7 @@ legend + * {
 [type=search] {
   outline-offset: -2px;
   -webkit-appearance: textfield;
+  appearance: textfield;
 }
 
 /* rtl:raw:
@@ -472,6 +471,7 @@ legend + * {
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
+  appearance: button;
 }
 
 output {
@@ -4289,11 +4289,6 @@ textarea.form-control-lg {
 .card-img-top {
   border-top-left-radius: var(--bs-card-inner-border-radius);
   border-top-right-radius: var(--bs-card-inner-border-radius);
-  width: 100%;
-    height: 200px;
-    object-fit: contain;
-    padding: 1rem;
-    background-color: #fff;
 }
 
 .card-img,
@@ -10862,4 +10857,3 @@ h2 {
     object-fit: cover;
 }
 
->>>>>>> 3886e4800895e33dd0aa798cab8b9dc8231c34c8
