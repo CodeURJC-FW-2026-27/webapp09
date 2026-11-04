@@ -6,7 +6,7 @@
 
 ### Project 2026–2027
 
-**Application name:** PC Parts Catalog
+**Application name:** PC Builts Catalog
 **Subject:** Web Fundamentals
 **Degree:** Software Engineering
 **Academic year:** 2026–2027

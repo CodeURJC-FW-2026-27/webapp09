@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+h1 {
+color:blue;
+}
+=======
 @charset "UTF-8";
 /*!
 * Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
@@ -79,7 +84,10 @@
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
+>>>>>>> 3886e4800895e33dd0aa798cab8b9dc8231c34c8
 
+<<<<<<< HEAD
+=======
 *,
 *::before,
 *::after {
@@ -10853,3 +10861,5 @@ h2 {
     height: 200px;
     object-fit: cover;
 }
+
+>>>>>>> 3886e4800895e33dd0aa798cab8b9dc8231c34c8
