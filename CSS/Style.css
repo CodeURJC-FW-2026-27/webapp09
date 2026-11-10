@@ -10835,8 +10835,24 @@ h1 {
   color: blue;
 }
 
+header h1 {
+    color: #fff;
+}
+
 body {
     background-color: #f5f5f5;
+}
+
+@media (max-width: 575.98px) {
+    body {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    main > section > .container {
+        padding-right: 2.5rem !important;
+        padding-left: 2.5rem !important;
+    }
 }
 
 h2 {
@@ -10855,4 +10871,3 @@ h2 {
     height: 200px;
     object-fit: cover;
 }
-
