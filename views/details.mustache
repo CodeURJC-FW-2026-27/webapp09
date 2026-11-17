@@ -112,12 +112,9 @@
                     <textarea class="form-control" id="componentDescription" name="description" rows="3" maxlength="1000" required>{{component.description}}</textarea>
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <label for="componentImage" class="form-label">Image URL</label>
-                    <input type="text" class="form-control" id="componentImage" name="image" value="{{component.image}}" placeholder="https://example.com/image.jpg">
-                </div>
-                <div class="col-12 col-md-6 mb-3">
                     <label for="componentImageFile" class="form-label">Upload image</label>
-                    <input type="file" class="form-control" id="componentImageFile" name="imageFile" accept="image/*">
+                    <input type="file" class="form-control" id="componentImageFile" name="imageFile" accept="image/*" {{^component.id}}required{{/component.id}}>
+                    <img class="image-preview mt-2" src="{{component.image}}" alt="Selected component image" {{^component.image}}hidden{{/component.image}}>
                 </div>
             </div>
             <button type="submit" class="btn btn-dark">Create component</button>
@@ -130,4 +127,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

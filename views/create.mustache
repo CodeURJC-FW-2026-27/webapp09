@@ -59,12 +59,8 @@
                                     <input type="date" class="form-control" id="releaseDate" name="releaseDate" value="{{computer.releaseDate}}" required>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label for="image" class="form-label">Image URL (or choose a file)</label>
-                                    <input type="text" class="form-control" id="image" name="image" value="{{computer.image}}" placeholder="https://example.com/image.jpg">
-                                </div>
-                                <div class="col-12 col-md-6 mb-3">
-                                    <label for="imageFile" class="form-label">Upload image</label>
-                                    <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*">
+                                    <label for="imageFile" class="form-label">{{#editing}}Replace image (optional){{/editing}}{{^editing}}Upload image{{/editing}}</label>
+                                    <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" {{^editing}}required{{/editing}}>
                                     <img class="image-preview mt-2" src="{{computer.image}}" alt="Selected computer image" {{^computer.image}}hidden{{/computer.image}}>
                                 </div>
                             </div>

@@ -292,7 +292,7 @@ Set `MONGODB_URI` in `.env` to your local MongoDB or Atlas connection string. Se
 npm start
 ```
 
-Open `http://localhost:3000`. Visit `http://localhost:3000/health` to check the MongoDB ping; it returns `{"status":"ok"}` when connected. If the `computers` collection is empty, the app inserts nine example computers and three example components. New computers are stored in the `computers` collection; components are stored in `components` with a `computerId` reference. Uploaded images are saved under `uploads/`.
+Open `http://localhost:3000`. Visit `http://localhost:3000/health` to check the MongoDB ping; it returns `{"status":"ok"}` when connected. If the `computers` collection is empty, the app inserts nine example computers and three example components. New computers are stored in the `computers` collection; components are stored in `components` with a `computerId` reference. Creating a computer or component requires uploading an image file; editing keeps the current image unless a replacement is uploaded. Uploaded image files are saved in the project-root `uploads/` directory, separate from the public static files in `public/`, and are served through the `/uploads/` route.
 
 ### Practice 2 implementation files
 
@@ -310,4 +310,3 @@ Open `http://localhost:3000`. Visit `http://localhost:3000/health` to check the 
 
 
    
-

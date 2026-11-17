@@ -94,7 +94,7 @@ function validateImage(image) {
     return image.startsWith('/images/') || /^https?:\/\//i.test(image) || /^\/uploads\//.test(image);
 }
 
-function validateComputer(body, image) {
+function validateComputer(body, image, requireImageUpload = false) {
     const name = String(body.name || '').trim();
     const description = String(body.description || '').trim();
     const price = Number(body.price);
@@ -107,11 +107,12 @@ function validateComputer(body, image) {
     if (!Number.isFinite(price) || price < 0) return 'Price must be a non-negative number.';
     const parsedDate = new Date(`${date}T00:00:00.000Z`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) return 'A valid release date is required.';
-    if (!image || !validateImage(image)) return 'Choose an image file or provide a valid image URL.';
+    if (requireImageUpload && !image.startsWith('/uploads/')) return 'Choose an image file from your computer.';
+    if (!image || !validateImage(image)) return 'Choose a valid image file.';
     return '';
 }
 
-function validateComponent(body, image) {
+function validateComponent(body, image, requireImageUpload = false) {
     const name = String(body.name || '').trim();
     const description = String(body.description || '').trim();
     const price = Number(body.price);
@@ -121,7 +122,8 @@ function validateComponent(body, image) {
     if (!componentTypes.includes(body.type)) return 'Select a valid component type.';
     if (!description || description.length < 5 || description.length > 1000) return 'Description must contain between 5 and 1000 characters.';
     if (!Number.isFinite(price) || price < 0) return 'Price must be a non-negative number.';
-    if (image && !validateImage(image)) return 'Provide a valid image URL or image file.';
+    if (requireImageUpload && !image.startsWith('/uploads/')) return 'Choose an image file from your computer.';
+    if (image && !validateImage(image)) return 'Choose a valid image file.';
     return '';
 }
 
@@ -261,7 +263,7 @@ app.get('/computers/new', (request, response) => response.render('create', compu
 app.post('/computers', upload.single('imageFile'), async (request, response, next) => {
     try {
         const image = getImageFromRequest(request);
-        const error = validateComputer(request.body, image);
+        const error = validateComputer(request.body, image, true);
         if (error) {
             await deleteUploadedImage(image);
             return response.status(400).render('create', computerFormData(request.body, error));
@@ -368,7 +370,7 @@ app.post('/computers/:id/components', upload.single('imageFile'), async (request
         if (!computer) return response.sendStatus(404);
 
         const image = getImageFromRequest(request);
-        const error = validateComponent(request.body, image);
+        const error = validateComponent(request.body, image, true);
         if (error) {
             await deleteUploadedImage(image);
             return renderComputerDetails(response, computer, { status: 400, component: request.body, error });
