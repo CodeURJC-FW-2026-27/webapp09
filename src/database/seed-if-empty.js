@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { uploadDirectory } from '../lib/images.js';
+import { UPLOAD_DIRECTORY } from '../lib/images.js';
 
 const projectDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const dataDirectory = path.join(projectDirectory, 'data');
@@ -66,7 +66,7 @@ function storedImageName(filename) {
 }
 
 async function copySeedImages() {
-  await fs.mkdir(uploadDirectory, { recursive: true });
+  await fs.mkdir(UPLOAD_DIRECTORY, { recursive: true });
   const filenames = (await fs.readdir(dataDirectory))
     .filter(filename => /\.(?:png|jpe?g|webp)$/i.test(filename))
     .sort();
@@ -78,7 +78,7 @@ async function copySeedImages() {
     const stats = await fs.stat(sourcePath);
     if (stats.size > 5 * 1024 * 1024) throw new Error(`Seed image exceeds 5 MB: ${filename}`);
     const imageName = storedImageName(filename);
-    await fs.copyFile(sourcePath, path.join(uploadDirectory, imageName));
+    await fs.copyFile(sourcePath, path.join(UPLOAD_DIRECTORY, imageName));
     imageNames.push(imageName);
   }
   return imageNames;

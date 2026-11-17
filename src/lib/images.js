@@ -60,7 +60,7 @@ export async function removeUploadedFile(file) {
   if (!file?.path) return;
   try {
     const resolved = path.resolve(file.path);
-    if (path.dirname(resolved) === uploadDirectory) await fs.unlink(resolved);
+    if (path.dirname(resolved) === UPLOAD_DIRECTORY) await fs.unlink(resolved);
   } catch (error) {
     if (error.code !== 'ENOENT') console.error('Could not remove an unused uploaded image:', error.message);
   }
