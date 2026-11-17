@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PC Builds Catalog</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+<link rel="icon" type="image/png" href="images\ChatGPT Image 6 oct 2026, 15_42_56.png"><!-- Icon for the browser tab  -->
+
+    
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="Index.html">PC Parts Catalog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="Index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="create.html">Build your PC</a></li>
+                </ul>
+                 <form class="d-flex" role="search" onsubmit="return false;">
+        <input class="form-control me-2" type="search" placeholder="Search computers..." aria-label="Search">
+        <button class="btn btn-outline-dark" type="button"> 🔎 </button>
+           <div class="dropdown ms-2">
+          
+                              
+                                  <select
+                                        class="form-select"
+                                        id="type"
+                                        name="type"
+                                        required>
+
+                                        <option value="" selected disabled>
+                                            Select
+                                        </option>
+
+                                        <option value="High-End Computer">
+                                            High-End Computer
+                                        </option>
+
+                                        <option value="Modern Computer">
+                                            Modern Computer
+                                        </option>
+
+                                        <option value="Low-End Computer">
+                                            Low-End Computer
+                                        </option>
+
+                                    </select>
+                                </div>
+   
+            </div>
+        
+
+    </nav>
+    
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">PC Parts Catalog</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Browse computer builds and their components</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow-1">
+        <section class="py-5">
+            <div class="container px-4 px-lg-5">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <h2 class="h4 mb-0">Computers</h2>
+   
+</div>
+                      
+                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-lg-3 justify-content-center"> <!--Row of computer cards -->
+                    <div class="col mb-5">  <!-- Column for a single computer card col for bootstrap-->
+                        <div class="card h-100 shadow-sm">
+                            <!--row
+                                 └── col
+                                      └── card-->
+                            <img class="card-img-top pc-img" src="images\pcgaming.png" alt="Gaming PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">Gaming PC</h3>
+                                    <p class="card-text">High-performance gaming computer.</p>
+                                    <span class="fw-bold">€2000.00</span>
+                                </div>
+                            </div>
+
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=1">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                           
+                            <img class="card-img-top pc-img" src="images\Captura de pantalla 2026-10-12 125445(2).png" alt="Office PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">Office PC</h3>
+                                    <p class="card-text">Reliable computer for office tasks.</p>
+                                    <span class="fw-bold">€150.00</span>
+                                </div>
+                            </div>
+                           
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=2">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <img class="card-img-top pc-img" src="https://www.csl-computer.com/es/media/catalog/product/cache/7/image/3000x3000/9df78eab33525d08d6e5fb8d27136e95/8/9/89244---bb-mini-pc-csl-venombox-hs_01_3000px_18.webp" alt="Creator PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">Creator PC</h3>
+                                    <p class="card-text">Oriented towards content creation.</p>
+                                    <span class="fw-bold">€1599.99</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=3">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <img class="card-img-top pc-img" src="images\360_F_81271153_z1nD0djpmAU1YjDurPSaUnrJZ8hV1O1r.jpg" alt="Budget PC">
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">Budget PC</h3>
+                                    <p class="card-text">Cheaper option for basic tasks.</p>
+                                    <span class="fw-bold">€29.99</span>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=4">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <img class="card-img-top pc-img" src="https://cerebriti.b-cdn.net/uploads/FB_4ca608cd357efac71373eb399589f0f5.jpg" alt="Workstation PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">Workstation PC</h3>
+                                    <p class="card-text">High-performance machine with advanced features.</p>
+                                    <span class="fw-bold">€199.99</span>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=5">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            
+                            <img class="card-img-top pc-img" src="https://img.directindustry.es/images_di/photo-m2/240602-16959869.jpg" alt="Mini PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">Mini PC</h3>
+                                    <p class="card-text">Compact for travel and space-saving.</p>
+                                    <span class="fw-bold">€699.99</span>
+                                </div>
+                            </div>
+                           
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=6">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            
+                            <img class="card-img-top pc-img" src="images\images(1).jpg" alt="High-End PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">High-End PC</h3>
+                                    <p class="card-text">The most powerful option in the market.</p>
+                                    <span class="fw-bold">€2499.99</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=7">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            
+                            <img class="card-img-top pc-img" src="https://cerebriti.b-cdn.net/uploads/FB_b9064dd5b1ed42a941322e0b9a9e3af4.jpg" alt="All-in-One PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">All-in-One PC</h3>
+                                    <p class="card-text">Integrated design for a clean workspace.</p>
+                                    <span class="fw-bold">€499.99</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=9">View Details</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            
+                            <img class="card-img-top pc-img" src="images\Captura de pantalla 2026-10-11 101249.png" alt="Custom PC">
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h3 class="h5 fw-bolder">Custom PC</h3>
+                                    <p class="card-text">Tailored to your specific needs and preferences.</p>
+                                    <span class="fw-bold">€1299.99</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id=10">View Details</a></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+
+
+<footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">&copy; 2026 PC Parts Catalog. All rights reserved.</p></div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script> <!-- JavaScript files there is not javascript for the moment-->
+</body>
+</html>

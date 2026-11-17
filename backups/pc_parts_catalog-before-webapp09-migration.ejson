@@ -1,0 +1,37 @@
+{
+  "database": "pc_parts_catalog",
+  "createdAt": "2026-11-15T21:49:58.562Z",
+  "collections": {
+    "computers": [
+      {
+        "_id": {
+          "$oid": "6af9ec2277f70b8bb77f13d8"
+        },
+        "name": "PC gaming pro max gay",
+        "brand": "brandooooo",
+        "type": "Low-End Computer",
+        "description": "asdsdqas",
+        "image": "wefwefw",
+        "releaseDate": "2026-11-19",
+        "price": 400,
+        "used": true
+      }
+    ],
+    "components": [
+      {
+        "_id": {
+          "$oid": "6af9f3c2d548257e85968d7a"
+        },
+        "name": "wefwevw",
+        "brand": "gfwgww",
+        "type": "Case",
+        "description": "svwevwe",
+        "image": "wdcww",
+        "price": 1234454,
+        "computerId": {
+          "$oid": "6af9ec2277f70b8bb77f13d8"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{{> header}}
+    <div class="row align-items-center g-4">
+        <div class="col-md-6"><img src="{{component.imageUrl}}" class="img-fluid rounded" alt="{{component.name}}" onerror="this.onerror=null;this.src='/images/image-unavailable.svg'"></div>
+        <div class="col-md-6">
+            {{#component.brand}}<p><strong>Brand:</strong> {{component.brand}}</p>{{/component.brand}}
+            {{#component.type}}<p><strong>Type:</strong> {{component.type}}</p>{{/component.type}}
+            {{#component.priceDisplay}}<p><strong>Price:</strong> €{{component.priceDisplay}}</p>{{/component.priceDisplay}}
+            {{#component.description}}<p>{{component.description}}</p>{{/component.description}}
+            <p><strong>Computer:</strong> <a href="/computers/{{computer._id}}">{{computer.name}}</a></p>
+            <div class="d-flex flex-wrap gap-2 mt-4"><a class="btn btn-warning" href="/computers/{{computer._id}}/components/{{component.id}}/edit">Edit</a><form action="/computers/{{computer._id}}/components/{{component.id}}/delete" method="post" onsubmit="return confirm('Delete this component?')"><button class="btn btn-danger" type="submit">Delete</button></form><a class="btn btn-secondary" href="/computers/{{computer._id}}">Back to computer</a></div>
+        </div>
+    </div>
+{{> footer}}

@@ -1,0 +1,29 @@
+{{> header}}
+    <section class="mb-5" aria-label="Search and filter computers">
+        <form class="row g-2 align-items-end" action="/computers" method="get">
+            <div class="col-md-6"><label class="form-label" for="search">Search by name</label><input class="form-control" id="search" name="q" type="search" value="{{q}}" placeholder="Gaming PC"></div>
+            <div class="col-md-4"><label class="form-label" for="type">Computer type</label><select class="form-select" id="type" name="type"><option value="">All types</option>{{#typeOptions}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>{{/typeOptions}}</select></div>
+            <div class="col-md-2 d-flex gap-2"><button class="btn btn-dark flex-grow-1" type="submit">Search</button><a class="btn btn-outline-secondary" href="/computers">Clear</a></div>
+        </form>
+    </section>
+    <div class="d-flex justify-content-between align-items-center mb-3"><p class="text-muted mb-0">{{totalItems}} computers · page {{page}} of {{totalPages}}</p><a class="btn btn-primary" href="/computers/new">Add computer</a></div>
+    {{#hasResults}}
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
+        {{#computers}}
+        <div class="col mb-5"><article class="card h-100">
+            <a href="/computers/{{id}}"><img class="card-img-top pc-img" src="{{imageUrl}}" alt="{{name}}" onerror="this.onerror=null;this.src='/images/image-unavailable.svg'"></a>
+            <div class="card-body p-4"><div class="text-center"><h2 class="h5 fw-bolder"><a class="text-decoration-none text-dark" href="/computers/{{id}}">{{name}}</a></h2>{{#type}}<p>{{type}}</p>{{/type}}{{#priceDisplay}}<p>€{{priceDisplay}}</p>{{/priceDisplay}}</div></div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"><div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/computers/{{id}}">View details</a></div></div>
+        </article></div>
+        {{/computers}}
+    </div>
+    <nav aria-label="Computer catalog pages"><ul class="pagination justify-content-center">
+        {{#previousUrl}}<li class="page-item"><a class="page-link" href="{{previousUrl}}" rel="prev">Previous</a></li>{{/previousUrl}}
+        {{^previousUrl}}<li class="page-item disabled"><span class="page-link">Previous</span></li>{{/previousUrl}}
+        {{#pages}}<li class="page-item {{#active}}active{{/active}}"><a class="page-link" href="{{url}}" {{#active}}aria-current="page"{{/active}}>{{number}}</a></li>{{/pages}}
+        {{#nextUrl}}<li class="page-item"><a class="page-link" href="{{nextUrl}}" rel="next">Next</a></li>{{/nextUrl}}
+        {{^nextUrl}}<li class="page-item disabled"><span class="page-link">Next</span></li>{{/nextUrl}}
+    </ul></nav>
+    {{/hasResults}}
+    {{^hasResults}}<div class="alert alert-info" role="status">No computers match the selected search and filter.</div>{{/hasResults}}
+{{> footer}}
