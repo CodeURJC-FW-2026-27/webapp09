@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { once } from 'node:events';
 import { ObjectId } from 'mongodb';
+import { COMPONENT_TYPES, COMPUTER_TYPES } from '../src/config/catalog.js';
 
 const temporaryUploadDirectory = await fs.mkdtemp(path.join(os.tmpdir(), 'webapp09-uploads-'));
 process.env.PC_PARTS_UPLOAD_DIR = temporaryUploadDirectory;
@@ -41,10 +42,20 @@ function memoryCollection(initial = []) {
       documents.push(document);
       return { insertedId: document._id };
     },
+    async insertMany(values) {
+      const insertedIds = {};
+      values.forEach((value, index) => {
+        const document = { ...value, _id: value._id || new ObjectId() };
+        documents.push(document);
+        insertedIds[index] = document._id;
+      });
+      return { insertedIds };
+    },
     async updateOne(filter, update) {
       const document = documents.find(item => matches(item, filter));
       if (!document) return { matchedCount: 0 };
-      Object.assign(document, update.$set);
+      Object.assign(document, update.$set || {});
+      for (const key of Object.keys(update.$unset || {})) delete document[key];
       return { matchedCount: 1, modifiedCount: 1 };
     },
     async deleteOne(filter) {
@@ -52,6 +63,16 @@ function memoryCollection(initial = []) {
       if (index < 0) return { deletedCount: 0 };
       documents.splice(index, 1);
       return { deletedCount: 1 };
+    },
+    async deleteMany(filter) {
+      let deletedCount = 0;
+      for (let index = documents.length - 1; index >= 0; index -= 1) {
+        if (matches(documents[index], filter)) {
+          documents.splice(index, 1);
+          deletedCount += 1;
+        }
+      }
+      return { deletedCount };
     },
     find(filter = {}) {
       let selected = documents.filter(document => matches(document, filter));
@@ -86,7 +107,7 @@ function computerFields(name = 'Test Computer') {
   };
 }
 
-function componentFields(name = 'cpu') {
+function componentFields(name = 'CPU') {
   return {
     name, brand: 'Test Parts', type: 'CPU',
     description: 'A test component description with enough detail.', price: '250.00'
@@ -103,8 +124,7 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
   initialComputers[0].used = true;
   initialComputers.push({
     _id: legacyId, name: 'Legacy PC', brand: 'Legacy Brand', description: 'Legacy computer description.',
-    price: 400, releaseDate: '2024-05-01', image: 'images/pcgaming.png',
-    detailPage: { price: 399.99, image: 'images/pcgaming600x400.png' }
+    price: 400, releaseDate: '2024-05-01', image: 'images/pcgaming.png'
   });
   const collections = collectionPair(initialComputers);
   const app = createApp({ collections });
@@ -118,11 +138,11 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
 
   const computerForm = await request('/computers/new');
   const computerFormHtml = await computerForm.text();
-  assert.match(computerFormHtml, /id="used" name="used" type="checkbox"/);
-  assert.doesNotMatch(computerFormHtml, /Unspecified|Other/);
+  assert.match(computerFormHtml, /id="used" name="used" type="checkbox" value="true"/);
+  assert.doesNotMatch(computerFormHtml, /id="used"[^>]*checked/);
   assert.equal((computerFormHtml.match(/<option value="(?:High-End Computer|Modern Computer|Low-End Computer)"/g) || []).length, 3);
   const usedEdit = await request(`/computers/${initialComputers[0]._id}/edit`);
-  assert.match(await usedEdit.text(), /type="checkbox" value="true" checked/);
+  assert.match(await usedEdit.text(), /id="used" name="used" type="checkbox" value="true" checked/);
   const componentForm = await request(`/computers/${legacyId}/components/new`);
   const componentFormHtml = await componentForm.text();
   assert.doesNotMatch(componentFormHtml, /Unspecified|Other/);
@@ -132,8 +152,11 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
   const firstHtml = await firstPage.text();
   assert.equal(firstPage.status, 200);
   assert.equal((firstHtml.match(/<article class="card h-100">/g) || []).length, 6);
+  assert.match(firstHtml, /page 1 of 2/);
   assert.match(firstHtml, /aria-current="page"/);
   assert.match(firstHtml, /page&#x3D;2/);
+  const secondPage = await request('/computers?page=2');
+  assert.equal((await secondPage.text()).match(/<article class="card h-100">/g).length, 2);
   const filtered = await request('/computers?q=Catalog&type=Modern%20Computer&page=2');
   assert.equal(filtered.status, 200);
   assert.match(await filtered.text(), /q&#x3D;Catalog&amp;type&#x3D;Modern\+Computer&amp;page&#x3D;2/);
@@ -142,16 +165,17 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
   const legacyEditHtml = await legacyEdit.text();
   assert.equal(legacyEdit.status, 200);
   assert.match(legacyEditHtml, /Choose a type/);
-  assert.doesNotMatch(legacyEditHtml, /Unspecified|Other/);
+  assert.match(legacyEditHtml, /id="used" name="used" type="checkbox" value="true"/);
+  assert.doesNotMatch(legacyEditHtml, /id="used"[^>]*checked/);
   assert.equal((legacyEditHtml.match(/<option value="(?:High-End Computer|Modern Computer|Low-End Computer)"/g) || []).length, 3);
 
   const missingLegacyType = await request(`/computers/${legacyId}/edit`, {
     method: 'POST', body: multipart({ ...computerFields('Legacy PC'), type: '', used: '' })
   });
   assert.equal(missingLegacyType.status, 400);
+  assert.match(await missingLegacyType.text(), /Invalid form data/);
   const legacyStored = await collections.computers.findOne({ _id: legacyId });
   assert.equal(Object.hasOwn(legacyStored, 'type'), false);
-  assert.deepEqual(legacyStored.detailPage, { price: 399.99, image: 'images/pcgaming600x400.png' });
 
   const completeLegacy = await request(`/computers/${legacyId}/edit`, {
     method: 'POST', body: multipart({ ...computerFields('Legacy PC'), type: 'Low-End Computer' })
@@ -159,7 +183,6 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
   assert.equal(completeLegacy.status, 200);
   assert.equal(legacyStored.type, 'Low-End Computer');
   assert.equal(legacyStored.used, false);
-  assert.deepEqual(legacyStored.detailPage, { price: 399.99, image: 'images/pcgaming600x400.png' });
 
   const createdResponse = await request('/computers', { method: 'POST', body: multipart(computerFields(), true) });
   assert.equal(createdResponse.status, 200);
@@ -174,16 +197,49 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
 
   const missingImage = await request('/computers', { method: 'POST', body: multipart(computerFields('Missing Image')) });
   assert.equal(missingImage.status, 400);
-  assert.match(await missingImage.text(), /Select an image file/);
+  const missingImageHtml = await missingImage.text();
+  assert.match(missingImageHtml, /Invalid form data/);
+  assert.match(missingImageHtml, /Select an image file/);
   const invalidImage = await request('/computers', { method: 'POST', body: multipart(computerFields('Invalid Image'), true, Buffer.from('not an image')) });
   assert.equal(invalidImage.status, 400);
   assert.match(await invalidImage.text(), /not a supported image/);
   const invalidType = await request('/computers', { method: 'POST', body: multipart({ ...computerFields('Invalid Type'), type: 'Other' }, true) });
   assert.equal(invalidType.status, 400);
-  assert.match(await invalidType.text(), /listed types/);
+  const invalidTypeHtml = await invalidType.text();
+  assert.match(invalidTypeHtml, /listed types/);
+  assert.match(invalidTypeHtml, /<nav class="navbar/);
+  assert.match(invalidTypeHtml, /<footer class=/);
+  assert.match(invalidTypeHtml, /Back to new computer/);
   const invalidUsed = await request('/computers', { method: 'POST', body: multipart({ ...computerFields('Invalid Used'), used: 'maybe' }, true) });
   assert.equal(invalidUsed.status, 400);
   assert.match(await invalidUsed.text(), /Used must be a boolean/);
+
+  const invalidCases = [
+    { ...computerFields('lowercase computer') },
+    { ...computerFields('Short Description'), description: 'Too short' },
+    { ...computerFields('Negative Price'), price: '-1' },
+    { ...computerFields('Invalid Date'), releaseDate: '2026-02-30' }
+  ];
+  for (const fields of invalidCases) {
+    const response = await request('/computers', { method: 'POST', body: multipart(fields, true) });
+    assert.equal(response.status, 400);
+    assert.match(await response.text(), /Invalid form data/);
+  }
+  const usedComputer = await request('/computers', {
+    method: 'POST', body: multipart({ ...computerFields('Used Computer'), used: 'true' }, true)
+  });
+  assert.equal(usedComputer.status, 200);
+  assert.equal(collections.computers.documents.find(document => document.name === 'Used Computer').used, true);
+  const notUsedComputer = await request('/computers', {
+    method: 'POST', body: multipart({ ...computerFields('New Computer'), used: 'false' }, true)
+  });
+  assert.equal(notUsedComputer.status, 200);
+  assert.equal(collections.computers.documents.find(document => document.name === 'New Computer').used, false);
+  const clearUsed = await request(`/computers/${initialComputers[0]._id}/edit`, {
+    method: 'POST', body: multipart(computerFields(initialComputers[0].name))
+  });
+  assert.equal(clearUsed.status, 200);
+  assert.equal(initialComputers[0].used, false);
 
   const componentCreated = await request(`/computers/${createdComputer._id}/components`, {
     method: 'POST', body: multipart(componentFields(), true)
@@ -192,32 +248,50 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
   assert.match(await componentCreated.text(), /Component created/);
   const component = collections.components.documents[0];
   assert.equal(String(component.computerId), String(createdComputer._id));
-  assert.equal(component.name, 'cpu');
+  assert.equal(component.name, 'CPU');
   const computerDetails = await request(`/computers/${createdComputer._id}`);
-  assert.match(await computerDetails.text(), /cpu/);
-  assert.equal((await request(`/computers/${createdComputer._id}/components/${component._id}`)).status, 200);
+  const computerDetailsHtml = await computerDetails.text();
+  assert.match(computerDetailsHtml, /CPU/);
+  assert.doesNotMatch(computerDetailsHtml, /onsubmit="return confirm/);
+  const componentDetails = await request(`/computers/${createdComputer._id}/components/${component._id}`);
+  assert.equal(componentDetails.status, 200);
+  assert.doesNotMatch(await componentDetails.text(), /onsubmit="return confirm/);
 
   const oldComponentImage = component.image;
   const componentEdit = await request(`/computers/${createdComputer._id}/components/${component._id}/edit`, {
-    method: 'POST', body: multipart({ ...componentFields('cpu'), description: 'An updated component description.' })
+    method: 'POST', body: multipart({ ...componentFields('CPU'), description: 'An updated component description.' })
   });
   assert.equal(componentEdit.status, 200);
   assert.equal(component.image, oldComponentImage);
   assert.equal((await request(`/uploads/${oldComponentImage}`)).status, 200);
 
   const componentReplacement = await request(`/computers/${createdComputer._id}/components/${component._id}/edit`, {
-    method: 'POST', body: multipart({ ...componentFields('cpu'), description: 'A replacement image is being tested.' }, true)
+    method: 'POST', body: multipart({ ...componentFields('CPU'), description: 'A replacement image is being tested.' }, true)
   });
   assert.equal(componentReplacement.status, 200);
   assert.notEqual(component.image, oldComponentImage);
+  assert.equal(await collections.components.countDocuments({ image: oldComponentImage }), 0);
+  assert.equal(await collections.computers.countDocuments({ image: oldComponentImage }), 0);
   assert.equal((await request(`/uploads/${oldComponentImage}`)).status, 404);
   const replacementComponentImage = component.image;
 
-  const duplicateComponent = await request(`/computers/${createdComputer._id}/components`, {
+  const invalidComponentName = await request(`/computers/${createdComputer._id}/components`, {
+    method: 'POST', body: multipart(componentFields('cpu'), true)
+  });
+  assert.equal(invalidComponentName.status, 400);
+  const invalidComponentNameHtml = await invalidComponentName.text();
+  assert.match(invalidComponentNameHtml, /Invalid form data/);
+  assert.match(invalidComponentNameHtml, /uppercase letter/);
+  const invalidComponentType = await request(`/computers/${createdComputer._id}/components`, {
+    method: 'POST', body: multipart({ ...componentFields('Invalid Type'), type: 'Other' }, true)
+  });
+  assert.equal(invalidComponentType.status, 400);
+  assert.match(await invalidComponentType.text(), /listed types/);
+  const duplicateComponentName = await request(`/computers/${createdComputer._id}/components`, {
     method: 'POST', body: multipart(componentFields('CPU'), true)
   });
-  assert.equal(duplicateComponent.status, 400);
-  assert.match(await duplicateComponent.text(), /already exists/);
+  assert.equal(duplicateComponentName.status, 400);
+  assert.match(await duplicateComponentName.text(), /already exists/);
   const duplicateComputer = await request('/computers', { method: 'POST', body: multipart(computerFields('TEST COMPUTER'), true) });
   assert.equal(duplicateComputer.status, 400);
   assert.match(await duplicateComputer.text(), /already exists/);
@@ -232,31 +306,70 @@ test('catalog CRUD, validation, pagination, image handling, and empty-only seed 
   assert.equal((await request(`/uploads/${sharedImage}`)).status, 200);
   const replacementComputerImage = createdComputer.image;
 
-  const blockedDelete = await request(`/computers/${createdComputer._id}/delete`, { method: 'POST' });
-  assert.equal(blockedDelete.status, 409);
-  assert.ok(await collections.computers.findOne({ _id: createdComputer._id }));
-
-  const componentDelete = await request(`/computers/${createdComputer._id}/components/${component._id}/delete`, { method: 'POST' });
-  assert.equal(componentDelete.status, 200);
+  const componentDelete = await request(`/computers/${createdComputer._id}/components/${component._id}/delete`, { method: 'POST', redirect: 'manual' });
+  assert.equal(componentDelete.status, 303);
+  assert.equal(componentDelete.headers.get('location'), `/computers/${createdComputer._id}`);
   assert.equal((await request(`/uploads/${oldComponentImage}`)).status, 404);
-  const sharedComponentDelete = await request(`/computers/${createdComputer._id}/components/${sharedComponent.insertedId}/delete`, { method: 'POST' });
-  assert.equal(sharedComponentDelete.status, 200);
+  const sharedComponentDelete = await request(`/computers/${createdComputer._id}/components/${sharedComponent.insertedId}/delete`, { method: 'POST', redirect: 'manual' });
+  assert.equal(sharedComponentDelete.status, 303);
+  assert.equal(sharedComponentDelete.headers.get('location'), `/computers/${createdComputer._id}`);
   assert.equal((await request(`/uploads/${sharedImage}`)).status, 404);
-  const computerDelete = await request(`/computers/${createdComputer._id}/delete`, { method: 'POST' });
+  const firstCascadeComponent = await request(`/computers/${createdComputer._id}/components`, {
+    method: 'POST', body: multipart(componentFields('Cascade Component One'), true)
+  });
+  assert.equal(firstCascadeComponent.status, 200);
+  const firstCascadeComponentDocument = collections.components.documents.find(item => item.name === 'Cascade Component One');
+  const secondCascadeComponent = await request(`/computers/${createdComputer._id}/components`, {
+    method: 'POST', body: multipart(componentFields('Cascade Component Two'), true)
+  });
+  assert.equal(secondCascadeComponent.status, 200);
+  const secondCascadeComponentDocument = collections.components.documents.find(item => item.name === 'Cascade Component Two');
+  const computerDelete = await request(`/computers/${createdComputer._id}/delete`, { method: 'POST', redirect: 'manual' });
   assert.equal(computerDelete.status, 200);
+  const computerDeleteHtml = await computerDelete.text();
+  assert.match(computerDeleteHtml, /Computer deleted/);
+  assert.match(computerDeleteHtml, /Test Computer and its 2 components were removed from the catalog/);
+  assert.match(computerDeleteHtml, /Back to catalog/);
+  assert.equal(await collections.computers.findOne({ _id: createdComputer._id }), null);
+  assert.equal(await collections.components.countDocuments({ computerId: createdComputer._id }), 0);
+  assert.equal(await collections.components.findOne({ _id: firstCascadeComponentDocument._id }), null);
+  assert.equal(await collections.components.findOne({ _id: secondCascadeComponentDocument._id }), null);
   assert.equal((await request(`/uploads/${replacementComputerImage}`)).status, 404);
   assert.equal((await request(`/uploads/${replacementComponentImage}`)).status, 404);
+  assert.equal((await request(`/uploads/${firstCascadeComponentDocument.image}`)).status, 404);
+  assert.equal((await request(`/uploads/${secondCascadeComponentDocument.image}`)).status, 404);
 
   const emptyCollections = collectionPair();
   const seeded = await seedCatalogIfEmpty(emptyCollections);
   assert.equal(seeded.inserted, true);
-  assert.equal(await emptyCollections.computers.countDocuments(), 1);
-  assert.equal(await emptyCollections.components.countDocuments(), 1);
+  assert.equal(await emptyCollections.computers.countDocuments(), 9);
+  assert.equal(await emptyCollections.components.countDocuments(), 18);
+  assert.deepEqual(
+    COMPUTER_TYPES.map(type => emptyCollections.computers.documents.filter(computer => computer.type === type).length),
+    [3, 3, 3]
+  );
+  assert.ok(emptyCollections.computers.documents.every(computer =>
+    /^[A-Z]/.test(computer.name) && typeof computer.used === 'boolean' &&
+    computer.description.length >= 10 && computer.description.length <= 2000 &&
+    /^\d{4}-\d{2}-\d{2}$/.test(computer.releaseDate)
+  ));
+  assert.ok(emptyCollections.computers.documents.every(computer => {
+    const components = emptyCollections.components.documents.filter(component => String(component.computerId) === String(computer._id));
+    return components.length >= 2 && components.length <= 3;
+  }));
+  assert.ok(emptyCollections.components.documents.every(component =>
+    COMPONENT_TYPES.includes(component.type) && /^[A-Z]/.test(component.name) && component.image
+  ));
   const seededComputer = emptyCollections.computers.documents[0];
   assert.equal(String(emptyCollections.components.documents[0].computerId), String(seededComputer._id));
+  assert.ok(emptyCollections.computers.documents.every(computer => /^[a-f\d]{32}\.(?:png|jpe?g|webp)$/i.test(computer.image)));
+  assert.ok(emptyCollections.components.documents.every(component => /^[a-f\d]{32}\.(?:png|jpe?g|webp)$/i.test(component.image)));
+  const copiedSeedImages = await fs.readdir(temporaryUploadDirectory);
+  assert.ok(copiedSeedImages.filter(filename => /^[a-f\d]{32}\.(?:png|jpe?g|webp)$/i.test(filename)).length >= 10);
   assert.equal((await seedCatalogIfEmpty(emptyCollections)).inserted, false);
-  assert.equal(await emptyCollections.computers.countDocuments(), 1);
-  assert.equal(await emptyCollections.components.countDocuments(), 1);
+  assert.equal(await emptyCollections.computers.countDocuments(), 9);
+  assert.equal(await emptyCollections.components.countDocuments(), 18);
+  assert.deepEqual(await fs.readdir(temporaryUploadDirectory), copiedSeedImages);
 });
 
 test('startup seed does nothing when either collection already has documents', async () => {

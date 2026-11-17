@@ -1,7 +1,6 @@
 {{> header}}
     <div class="row justify-content-center"><div class="col-lg-9 col-xl-8">
         <p class="text-muted">Computer: <a href="/computers/{{computer._id}}">{{computer.name}}</a></p>
-        {{#errorMessage}}<div class="alert alert-danger" role="alert">{{errorMessage}}</div>{{/errorMessage}}
         <form method="post" action="{{action}}" enctype="multipart/form-data" class="card p-4 p-md-5">
             <div class="mb-3"><label for="name" class="form-label">Component name</label><input class="form-control" id="name" name="name" type="text" value="{{component.name}}" maxlength="100" pattern="[A-ZÀ-ÖØ-Þ].*" title="Start with an uppercase letter." required></div>
             <div class="mb-3"><label for="brand" class="form-label">Brand</label><input class="form-control" id="brand" name="brand" type="text" value="{{component.brand}}" maxlength="100" required></div>

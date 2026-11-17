@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const uri = 'mongodb://127.0.0.1:27017/';
+const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/';
 const databaseName = 'pc_parts_catalog';
 const client = new MongoClient(uri, { serverSelectionTimeoutMS: 5000 });
 
@@ -26,7 +26,7 @@ export function connectPcPartsDB() {
         })().catch(error => {
             connectionPromise = undefined;
             throw new Error(
-                `No se pudo conectar a MongoDB (${uri}, base ${databaseName}): ${error.message}`,
+                `Could not connect to MongoDB (${uri}, database ${databaseName}): ${error.message}`,
                 { cause: error }
             );
         });

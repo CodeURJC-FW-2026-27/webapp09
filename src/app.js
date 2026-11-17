@@ -50,7 +50,7 @@ export async function startServer() {
   try {
     app.locals.pcPartsCollections = await connectPcPartsDB();
     const seedResult = await seedCatalogIfEmpty(app.locals.pcPartsCollections);
-    if (seedResult.inserted) console.log('An example computer and component were added to the empty catalog.');
+    if (seedResult.inserted) console.log(`${seedResult.computerCount} example computers and ${seedResult.componentCount} components were added to the empty catalog.`);
     else console.log('Catalog initialization skipped because existing data was found.');
     console.log('MongoDB connected: pc_parts_catalog (computers, components).');
   } catch (error) {
