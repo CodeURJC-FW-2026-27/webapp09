@@ -1,0 +1,17 @@
+{{> header}}
+    <div class="row justify-content-center"><div class="col-lg-9 col-xl-8">
+        {{#errorMessage}}<div class="alert alert-danger" role="alert">{{errorMessage}}</div>{{/errorMessage}}
+        <form method="post" action="{{action}}" enctype="multipart/form-data" class="card p-4 p-md-5">
+            <h2 class="h4 mb-3">Basic information</h2>
+            <div class="mb-3"><label for="name" class="form-label">Name</label><input class="form-control" id="name" name="name" type="text" value="{{computer.name}}" maxlength="100" pattern="[A-ZÀ-ÖØ-Þ].*" title="Start with an uppercase letter." required></div>
+            <div class="mb-3"><label for="brand" class="form-label">Brand</label><input class="form-control" id="brand" name="brand" type="text" value="{{computer.brand}}" maxlength="100" required></div>
+            <div class="mb-3"><label for="type" class="form-label">Type</label><select class="form-select" id="type" name="type" required>{{^computer.hasTypeSelection}}<option value="" disabled selected hidden>Choose a type</option>{{/computer.hasTypeSelection}}{{#computer.typeOptions}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>{{/computer.typeOptions}}</select></div>
+            <div class="mb-3"><label for="description" class="form-label">Description</label><textarea class="form-control" id="description" name="description" rows="5" minlength="10" maxlength="2000" required>{{computer.description}}</textarea></div>
+            <div class="mb-3"><label for="price" class="form-label">Price (€)</label><input class="form-control" id="price" name="price" type="number" value="{{computer.price}}" min="0" step="0.01" required></div>
+            <div class="mb-3"><label for="releaseDate" class="form-label">Release date</label><input class="form-control" id="releaseDate" name="releaseDate" type="date" value="{{computer.releaseDate}}" required></div>
+            <div class="mb-3"><label for="image" class="form-label">Computer image (PNG, JPEG, or WebP; max 5 MB)</label>{{#computer.imageSource}}<div class="mb-2"><img class="img-thumbnail" style="max-height: 180px" src="{{computer.imageSource}}" alt="Current computer image" onerror="this.onerror=null;this.src='/images/image-unavailable.svg'"></div>{{/computer.imageSource}}<input class="form-control" id="image" name="image" type="file" accept="image/png,image/jpeg,image/webp" {{^isEdit}}required{{/isEdit}}>{{#isEdit}}<div class="form-text">Leave empty to keep the current image.</div>{{/isEdit}}</div>
+            <fieldset class="mb-4"><legend class="col-form-label pt-0">Condition</legend><div class="form-check"><input class="form-check-input" id="used" name="used" type="checkbox" value="true" {{#computer.used}}checked{{/computer.used}}><label class="form-check-label" for="used">Used computer</label></div><div class="form-text">Checked means used; unchecked means new.</div></fieldset>
+            <div class="d-flex justify-content-end gap-2"><a class="btn btn-secondary" href="{{cancelUrl}}">Cancel</a><button class="btn btn-primary" type="submit">{{#isEdit}}Save changes{{/isEdit}}{{^isEdit}}Create computer{{/isEdit}}</button></div>
+        </form>
+    </div></div>
+{{> footer}}
