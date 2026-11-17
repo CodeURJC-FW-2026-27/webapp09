@@ -272,6 +272,36 @@ This page will display the complete information of a selected component, includi
 <img width="1332" height="806" alt="Captura de pantalla 2026-10-12 130533" src="https://github.com/user-attachments/assets/09334f83-2f08-433f-adf9-afe2eabe85bc" />
 <img width="1398" height="793" alt="Captura de pantalla 2026-10-12 130546" src="https://github.com/user-attachments/assets/e2d55761-4b43-4878-a466-c08889cad2cd" />
 
+## Practice 2: Node.js and MongoDB
+
+### Requirements
+
+- Node.js 20 or newer
+- A running MongoDB server or a MongoDB Atlas cluster
+
+### Run locally
+
+```powershell
+npm install
+Copy-Item .env.example .env
+```
+
+Set `MONGODB_URI` in `.env` to your local MongoDB or Atlas connection string. Set `MONGODB_DB` to the database name. Keep `.env` private; it is ignored by Git. Then start the app:
+
+```powershell
+npm start
+```
+
+Open `http://localhost:3000`. Visit `http://localhost:3000/health` to check the MongoDB ping; it returns `{"status":"ok"}` when connected. If the `computers` collection is empty, the app inserts nine example computers and three example components. New computers are stored in the `computers` collection; components are stored in `components` with a `computerId` reference. Creating a computer or component requires uploading an image file; editing keeps the current image unless a replacement is uploaded. Uploaded image files are saved in the project-root `uploads/` directory, separate from the public static files in `public/`, and are served through the `/uploads/` route.
+
+### Practice 2 implementation files
+
+- `app.js`: Express routes, validation, sample data, and computer/component create, read, update, and delete operations.
+- `db.js`: shared MongoDB client connection.
+- `views/`: Mustache pages for the catalog, computer form, details, component editing, and errors.
+- `public/js/app.js`: image preview for uploaded files.
+- `.env.example`: local MongoDB configuration template.
+
 
 
 
@@ -280,4 +310,3 @@ This page will display the complete information of a selected component, includi
 
 
    
-

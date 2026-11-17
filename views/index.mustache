@@ -4,32 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>PC Builds Catalog</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="images\ChatGPT Image 6 oct 2026, 15_42_56.png"><!-- Icon for the browser tab  -->
+    <link rel="stylesheet" href="/css/Style.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="Index.html">PC Parts Catalog</a>
+            <a class="navbar-brand" href="/">PC Parts Catalog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="Index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="create.html">Build your PC</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/computers/new">Create a computer</a></li>
                 </ul>
-                 <form class="d-flex" role="search" onsubmit="return false;">
-                    <input class="form-control me-2" type="search" placeholder="Search computers..." aria-label="Search">
-                    <button class="btn btn-outline-dark" type="button"> 🔎 </button>
-                    <div class="dropdown ms-2">
-                        <select class="form-select" id="type" name="type" required>
-                            <option value="" selected disabled>Select</option>
-                            <option value="High-End Computer">High-End Computer</option>
-                            <option value="Modern Computer">Modern Computer</option>
-                            <option value="Low-End Computer">Low-End Computer</option>
-                        </select>
-                    </div>
+                 <form class="d-flex gap-2" role="search" action="/" method="get">
+                    <input class="form-control" type="search" name="search" value="{{search}}" placeholder="Search computers..." aria-label="Search computers">
+                    <select class="form-select" name="type" aria-label="Filter by type">
+                        <option value="">All types</option>
+                        {{#computerTypes}}
+                        <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+                        {{/computerTypes}}
+                    </select>
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
                 </form>
             </div>
         </div>
@@ -49,9 +45,11 @@
             <div class="container px-4 px-lg-5">
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
                     <h2 class="h4 mb-0">Computers</h2>
+                    <a class="btn btn-primary" href="/computers/new">Create a computer</a>
                 </div>
 
-                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-lg-3 justify-content-center">
+                {{#hasComputers}}
+                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-lg-3">
                     {{#computers}}
                     <div class="col mb-5">
                         <div class="card h-100 shadow-sm">
@@ -64,12 +62,27 @@
                                 </div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="details.html?id={{id}}">View Details</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/computers/{{id}}">View Details</a></div>
                             </div>
                         </div>
                     </div>
                     {{/computers}}
                 </div>
+                {{/hasComputers}}
+                {{^hasComputers}}
+                <p class="text-center py-5">No computers match this search.</p>
+                {{/hasComputers}}
+                {{#hasPages}}
+                <nav aria-label="Computer pages">
+                    <ul class="pagination justify-content-center">
+                        {{#previousPage}}<li class="page-item"><a class="page-link" href="{{previousPage}}">Previous</a></li>{{/previousPage}}
+                        {{#pages}}
+                        <li class="page-item {{#selected}}active{{/selected}}"><a class="page-link" href="{{href}}">{{number}}</a></li>
+                        {{/pages}}
+                        {{#nextPage}}<li class="page-item"><a class="page-link" href="{{nextPage}}">Next</a></li>{{/nextPage}}
+                    </ul>
+                </nav>
+                {{/hasPages}}
             </div>
         </section>
     </main>
@@ -77,7 +90,7 @@
     <footer class="py-5 bg-dark">
         <div class="container"><p class="m-0 text-center text-white">&copy; 2026 PC Parts Catalog. All rights reserved.</p></div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

@@ -2,3 +2,7 @@ node_modules/
 uploads/*
 !uploads/.gitkeep
 .env
+
+node_modules/
+uploads/
+.env
