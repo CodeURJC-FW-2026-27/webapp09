@@ -12,8 +12,6 @@ Built with **Node.js**, **Express**, **Mustache** templates, **Bootstrap 5** and
 2. [Functionality](#functionality)
 3. [Practice 1 — HTML and CSS layout](#practice-1--html-and-css-layout)
 4. [Practice 2 — Node.js and MongoDB](#practice-2--nodejs-and-mongodb)
-   - [Execution instructions](#execution-instructions)
-   - [Configuration](#configuration)
    - [Application screenshots](#application-screenshots)
    - [Routes](#routes)
    - [Validation rules](#validation-rules)
@@ -132,70 +130,6 @@ Static layout of the main page, the detail page and the new-element page, built 
 
 The application is fully functional on the server side: data lives in MongoDB, images in `uploads/`, and pages are rendered with Mustache templates that share a common header and footer through partials.
 
-### Execution instructions
-
-**Requirements**
-
-| Tool | Version |
-| --- | --- |
-| [Node.js](https://nodejs.org/) | 22 or newer |
-| [MongoDB Community Server](https://www.mongodb.com/try/download/community) | 7.0 or newer, running on `localhost:27017` |
-| Git | Any recent version |
-
-**1. Download the code**
-
-```sh
-git clone https://github.com/CodeURJC-FW-2026-27/webapp09.git
-cd webapp09
-```
-
-**2. Install the dependencies**
-
-```sh
-npm install
-```
-
-**3. Start MongoDB** in a separate terminal.
-
-Windows (PowerShell):
-
-```powershell
-New-Item -ItemType Directory -Force mongo-data
-mongod --dbpath .\mongo-data
-```
-
-macOS or Linux:
-
-```sh
-mkdir -p mongo-data
-mongod --dbpath ./mongo-data
-```
-
-**4. Start the application**
-
-```sh
-npm start
-```
-
-**5. Open the application** at <http://localhost:3001/computers>.
-
-On the first start, if the database is empty, the application inserts nine example computers with their components and copies the sample images from `data/` to `uploads/`. If the database already contains data, nothing is inserted.
-
-### Configuration
-
-All settings are optional environment variables.
-
-| Variable | Default | Description |
-| --- | --- | --- |
-| `PORT` | `3001` | HTTP port of the web server |
-| `MONGODB_URI` | `mongodb://127.0.0.1:27017/` | MongoDB connection string. The database is named `pc_parts_catalog` |
-| `PC_PARTS_UPLOAD_DIR` | `uploads/` in the project | Folder where uploaded images are stored |
-
-Example:
-
-```sh
-PORT=8080 npm start
-```
 
 ### Application screenshots
 
