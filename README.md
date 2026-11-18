@@ -224,25 +224,25 @@ To start again from the sample data, stop the application, drop the `pc_parts_ca
 
 **Main page: search, category filter and pagination**
 
-![Main page: search bar, category filter and result counter](docs/screenshots/search-filter.png)
+![Main page: search bar, category filter and result counter](public/images/search-filter.png)
 
-![Main page: computer cards and pagination links](docs/screenshots/catalog.png)
+![Main page: computer cards and pagination links](public/images/catalog.png)
 
 **Computer detail page with its components**
 
-![Computer detail page with its components](docs/screenshots/computer-detail.png)
+![Computer detail page with its components](public/images/computer-detail.png)
 
 **Create and edit forms** (the same form is reused for creating and editing)
 
-![Create computer form](docs/screenshots/computer-form.png)
+![Create computer form](public/images/computer-form.png)
 
-![Edit component form](docs/screenshots/component-form.png)
+![Edit component form](public/images/component-form.png)
 
 **Confirmation pages**
 
-![Confirmation after creating a computer](docs/screenshots/confirmation.png)
+![Confirmation after creating a computer](public/images/confirmation.png)
 
-![Confirmation after deleting a computer](docs/screenshots/deletion-confirmation.png)
+![Confirmation after deleting a computer](public/images/deletion-confirmation.png)
 
 ### Routes
 
@@ -370,48 +370,32 @@ The tests use in-memory mocks, so they do not need MongoDB.
 
 ### Demo video
 
-[▶ Watch the demo on YouTube](https://www.youtube.com/watch?v=REPLACE_WITH_VIDEO_ID)
+[▶ Watch the demo on YouTube][https://youtu.be/Gp89TCgJCcU]
 
 ### Team participation
 
 #### Pablo Montes Gilete
-
-REPLACE: paragraph describing the tasks carried out in Practice 2.
-
-Most relevant commits:
-
-1. REPLACE
-
-Files with most participation:
-
-1. REPLACE
+cbc5642 — “12 AM fixes”
+(Upgraded the path for computers and components. Also added test.)
+7f09139 — “Bootstrap and new UI”
+9bc8cef — “feat: update seed data and implement image handling…”
 
 #### Yoel Alejandro Adán González
 
-REPLACE: paragraph describing the tasks carried out in Practice 2.
+R1.[1c14ef3](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/1c14ef3aa6072f84e4a5e349d3ee757ac823bef3) 
+2. [f7ea9d8](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/f7ea9d846ca9c9511c48b8a888aefb896a028ed2) — Update package-lock.json to add dotenv and update dependencies
+3. [797b536](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/797b536cafd63b57f122c57cc159c8cb46e7435c) — Update stylesheet and icon links for consistency across HTML files(Linux)
 
-Most relevant commits:
-
-1. REPLACE
-
-Files with most participation:
-
-1. REPLACE
 
 #### Alvaro Pastrana Lopez
 
-REPLACE: paragraph describing the tasks carried out in Practice 2.
+[c575705] — “Cambios”
+Integrated most of the new catalog structure, routes, database, tests, views, and migrations.
 
-Most relevant commits:
+[1c14ef3] — “Add initial project files…”
+Added the main application logic, database connection, and initial server configuration.
 
-1. REPLACE
-
-Files with most participation:
-
-1. REPLACE
-
-## License
-
-Source code released under the [Apache License 2.0](LICENSE).
+[797b536] — “Update stylesheet and icon links…”
+Improved visual consistency by correctly linking stylesheets and icons across all pages.
 
 
