@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const { randomUUID } = require('crypto');
 const { ObjectId } = require('mongodb');
-const { connectToDatabase, closeDatabase } = require('./db');
+const { connectToDatabase, closeDatabase } = require('../../db');
 
 const app = express();
 const port = process.env.PORT || 3000;

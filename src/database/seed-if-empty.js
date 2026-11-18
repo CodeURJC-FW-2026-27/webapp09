@@ -5,19 +5,30 @@ import { fileURLToPath } from 'node:url';
 import { UPLOAD_DIRECTORY } from '../lib/images.js';
 
 const projectDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const dataDirectory = path.join(projectDirectory, 'images');
+const dataDirectory = path.join(projectDirectory, 'data');
 
 const computerExamples = [
-  { name: 'Apex Gaming Tower', brand: 'Northstar Builds', type: 'High-End Computer', description: 'A powerful gaming desktop designed for high frame rates, detailed graphics, and quiet cooling during long sessions.', price: 2499.99, releaseDate: '2026-03-15', used: false, imageIndex: 0 },
-  { name: 'Aurora Creator Workstation', brand: 'Northstar Builds', type: 'High-End Computer', description: 'A balanced workstation for video editing, 3D rendering, and other demanding creative workloads.', price: 2199.50, releaseDate: '2026-02-20', used: false, imageIndex: 2 },
-  { name: 'Summit Pro Desktop', brand: 'Summit Systems', type: 'High-End Computer', description: 'A premium desktop with room for future upgrades and the performance needed for intensive professional applications.', price: 2899, releaseDate: '2026-05-01', used: true, imageIndex: 4 },
-  { name: 'Everyday Office PC', brand: 'Clearview Computers', type: 'Modern Computer', description: 'A dependable computer for office applications, online meetings, web browsing, and everyday home use.', price: 799.99, releaseDate: '2026-01-10', used: false, imageIndex: 1 },
-  { name: 'Compact Home Desktop', brand: 'Clearview Computers', type: 'Modern Computer', description: 'A compact and efficient desktop that fits easily into a home workspace while handling common daily tasks.', price: 649.95, releaseDate: '2025-11-18', used: false, imageIndex: 3 },
-  { name: 'Studio Editing PC', brand: 'Pixel Forge', type: 'Modern Computer', description: 'A versatile system for photo editing, light video production, and multitasking across creative software.', price: 1199, releaseDate: '2026-04-04', used: true, imageIndex: 5 },
-  { name: 'Starter Desktop', brand: 'ValueTech', type: 'Low-End Computer', description: 'An affordable desktop for schoolwork, documents, streaming, and other basic computing needs.', price: 399.99, releaseDate: '2025-09-12', used: false, imageIndex: 6 },
-  { name: 'Small Space PC', brand: 'ValueTech', type: 'Low-End Computer', description: 'A small, budget-friendly computer that provides reliable performance for web browsing and basic productivity.', price: 329, releaseDate: '2025-07-30', used: true, imageIndex: 7 },
-  { name: 'Essential Family Computer', brand: 'Everyday Systems', type: 'Low-End Computer', description: 'A practical entry-level computer for family use, online learning, and everyday applications.', price: 459.50, releaseDate: '2026-06-02', used: false, imageIndex: 8 }
+  { name: 'Apex Gaming Tower', brand: 'Northstar Builds', type: 'High-End Computer', description: 'A powerful gaming desktop designed for high frame rates, detailed graphics, and quiet cooling during long sessions.', price: 2499.99, releaseDate: '2026-03-15', used: false, image: 'pcgaming.png' },
+  { name: 'Aurora Creator Workstation', brand: 'Northstar Builds', type: 'High-End Computer', description: 'A balanced workstation for video editing, 3D rendering, and other demanding creative workloads.', price: 2199.50, releaseDate: '2026-02-20', used: false, image: 'Captura de pantalla 2026-10-12 125445(2).png' },
+  { name: 'Summit Pro Desktop', brand: 'Summit Systems', type: 'High-End Computer', description: 'A premium desktop with room for future upgrades and the performance needed for intensive professional applications.', price: 2899, releaseDate: '2026-05-01', used: true, image: 'https://www.csl-computer.com/es/media/catalog/product/cache/7/image/3000x3000/9df78eab33525d08d6e5fb8d27136e95/8/9/89244---bb-mini-pc-csl-venombox-hs_01_3000px_18.webp' },
+  { name: 'Everyday Office PC', brand: 'Clearview Computers', type: 'Modern Computer', description: 'A dependable computer for office applications, online meetings, web browsing, and everyday home use.', price: 799.99, releaseDate: '2026-01-10', used: false, image: '360_F_81271153_z1nD0djpmAU1YjDurPSaUnrJZ8hV1O1r.jpg' },
+  { name: 'Compact Home Desktop', brand: 'Clearview Computers', type: 'Modern Computer', description: 'A compact and efficient desktop that fits easily into a home workspace while handling common daily tasks.', price: 649.95, releaseDate: '2025-11-18', used: false, image: 'https://cerebriti.b-cdn.net/uploads/FB_4ca608cd357efac71373eb399589f0f5.jpg' },
+  { name: 'Studio Editing PC', brand: 'Pixel Forge', type: 'Modern Computer', description: 'A versatile system for photo editing, light video production, and multitasking across creative software.', price: 1199, releaseDate: '2026-04-04', used: true, image: 'https://img.directindustry.es/images_di/photo-m2/240602-16959869.jpg' },
+  { name: 'Starter Desktop', brand: 'ValueTech', type: 'Low-End Computer', description: 'An affordable desktop for schoolwork, documents, streaming, and other basic computing needs.', price: 399.99, releaseDate: '2025-09-12', used: false, image: 'images(1).jpg' },
+  { name: 'Small Space PC', brand: 'ValueTech', type: 'Low-End Computer', description: 'A small, budget-friendly computer that provides reliable performance for web browsing and basic productivity.', price: 329, releaseDate: '2025-07-30', used: true, image: 'https://cerebriti.b-cdn.net/uploads/FB_b9064dd5b1ed42a941322e0b9a9e3af4.jpg' },
+  { name: 'Essential Family Computer', brand: 'Everyday Systems', type: 'Low-End Computer', description: 'A practical entry-level computer for family use, online learning, and everyday applications.', price: 459.50, releaseDate: '2026-06-02', used: false, image: 'Captura de pantalla 2026-10-11 101249.png' }
 ];
+
+const componentImages = {
+  CPU: 'https://www.gsmpro.cl/cdn/shop/files/procesador-amd-ryzen-7-7800x3d-7.webp?v=1775234196&width=1200',
+  GPU: 'https://multimedia.bbycastatic.ca/multimedia/products/1500x1500/191/19193/19193219_2.jpg',
+  Motherboard: 'https://asset-us-store.msi.com/image/cache/catalog/Pd_page/Motherboard/B650TOMAHAWKWIFI/B650TOMAHAWKWIFI-1-1024x1024.png',
+  RAM: 'https://images.kabum.com.br/produtos/fotos/sync_mirakl/693901/large/Kit-De-Mem-ria-Para-PC-Corsair-Vengeance-32gb-6000mhz-2x16gb-Ddr5-Cmk32gx5m2e6000c36-5823-_1762281527.webp',
+  Storage: 'https://cdn.atacadoconnect.com/produtos/1245967/ssd-m-2-samsung-990-evo-plus-1tb-nvme-pcie-gen-4-mz-v9s1t0b-am-1245967-96105.webp',
+  PSU: 'https://assets.corsair.com/image/upload/c_pad%2Cq_85%2Ch_1100%2Cw_1100%2Cf_auto/products/Power-Supply-Units/CP-9020195-WW/Gallery/RM750_01.webp',
+  Case: 'https://lcdi.fr/cdn/shop/files/corsair-4000d-airflow-noir.jpg?v=1745245056',
+  'Cooling System': 'https://fly.bg/uploads/products/as/deepcool_ak400_cpu_air_cooler_1x120mm_pwm_fan_tdp_gwx9n.jpg'
+};
 
 const componentExamples = [
   [
@@ -72,14 +83,14 @@ async function copySeedImages() {
     .sort();
   if (filenames.length < 10) throw new Error('The data directory must contain at least 10 sample images.');
 
-  const imageNames = [];
+  const imageNames = {};
   for (const filename of filenames) {
     const sourcePath = path.join(dataDirectory, filename);
     const stats = await fs.stat(sourcePath);
     if (stats.size > 5 * 1024 * 1024) throw new Error(`Seed image exceeds 5 MB: ${filename}`);
     const imageName = storedImageName(filename);
     await fs.copyFile(sourcePath, path.join(UPLOAD_DIRECTORY, imageName));
-    imageNames.push(imageName);
+    imageNames[filename] = imageName;
   }
   return imageNames;
 }
@@ -94,16 +105,16 @@ export async function seedCatalogIfEmpty(collections) {
   }
 
   const imageNames = await copySeedImages();
-  const computers = computerExamples.map(({ imageIndex, ...computer }) => ({
+  const computers = computerExamples.map(({ image, ...computer }) => ({
     ...computer,
-    image: imageNames[imageIndex]
+    image: imageNames[image] || image
   }));
   const insertedComputers = await collections.computers.insertMany(computers);
   const components = componentExamples.flatMap((examples, computerIndex) =>
-    examples.map((component, componentIndex) => ({
+    examples.map(component => ({
       ...component,
       description: `${component.name} is a reliable ${component.type.toLowerCase()} selected for this example computer build.`,
-      image: imageNames[(computerIndex + componentIndex + 1) % imageNames.length],
+      image: componentImages[component.type],
       computerId: insertedComputers.insertedIds[computerIndex]
     }))
   );

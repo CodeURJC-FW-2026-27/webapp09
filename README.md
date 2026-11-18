@@ -187,7 +187,7 @@ The browser validates every field it can with HTML attributes. The server repeat
 
 ```text
 webapp09/
-├── data/                       Sample images copied to uploads/ on first start
+├── data/                       Seed images copied to uploads/ on first start
 ├── public/
 │   ├── css/Style.css
 │   └── images/                 Static images (favicon, fallback image)
