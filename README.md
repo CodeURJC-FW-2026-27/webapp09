@@ -12,9 +12,13 @@ Built with **Node.js**, **Express**, **Mustache** templates, **Bootstrap 5** and
 2. [Functionality](#functionality)
 3. [Practice 1 — HTML and CSS layout](#practice-1--html-and-css-layout)
 4. [Practice 2 — Node.js and MongoDB](#practice-2--nodejs-and-mongodb)
+   - [Execution instructions](#execution-instructions)
+   - [Configuration](#configuration)
+   - [Sample data and images](#sample-data-and-images)
    - [Application screenshots](#application-screenshots)
    - [Routes](#routes)
    - [Validation rules](#validation-rules)
+   - [Error and confirmation pages](#error-and-confirmation-pages)
    - [Project structure and file descriptions](#project-structure-and-file-descriptions)
    - [Demo script](#demo-script)
    - [Demo video](#demo-video)
@@ -130,24 +134,115 @@ Static layout of the main page, the detail page and the new-element page, built 
 
 The application is fully functional on the server side: data lives in MongoDB, images in `uploads/`, and pages are rendered with Mustache templates that share a common header and footer through partials.
 
+### Execution instructions
+
+**Requirements**
+
+| Tool | Version |
+| --- | --- |
+| [Node.js](https://nodejs.org/) | 22 or newer |
+| [MongoDB Community Server](https://www.mongodb.com/try/download/community) | 7.0 or newer, running on `localhost:27017` |
+| [Git](https://git-scm.com/) | Any recent version |
+
+**1. Download the code**
+
+```sh
+git clone https://github.com/CodeURJC-FW-2026-27/webapp09.git
+cd webapp09
+```
+
+**2. Install the dependencies**
+
+```sh
+npm install
+```
+
+**3. Start MongoDB** in a separate terminal and leave it running.
+
+Windows (PowerShell):
+
+```powershell
+New-Item -ItemType Directory -Force mongo-data
+mongod --dbpath .\mongo-data
+```
+
+macOS or Linux:
+
+```sh
+mkdir -p mongo-data
+mongod --dbpath ./mongo-data
+```
+
+If MongoDB is already installed as a service, you can skip this step.
+
+**4. Start the application**
+
+```sh
+npm start
+```
+
+**5. Open the application** at <http://localhost:3001/computers>.
+
+The console prints `MongoDB connected` when the database is reachable. If MongoDB is not running, the web server still starts and every catalog page shows an error page until MongoDB is available. Stop and start the application again after starting MongoDB.
+
+### Configuration
+
+All settings are optional environment variables.
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `PORT` | `3001` | HTTP port of the web server |
+| `MONGODB_URI` | `mongodb://127.0.0.1:27017/` | MongoDB connection string. The database is named `pc_parts_catalog` |
+| `PC_PARTS_UPLOAD_DIR` | `uploads/` in the project | Folder where uploaded images are stored |
+
+Example (macOS or Linux):
+
+```sh
+PORT=8080 npm start
+```
+
+Example (Windows PowerShell):
+
+```powershell
+$env:PORT = 8080; npm start
+```
+
+### Sample data and images
+
+When the application starts and both collections are empty, it:
+
+1. Copies the sample images from the `data/` folder to the `uploads/` folder, giving each one a managed name.
+2. Inserts nine example computers (three of each type) with two components each.
+
+If the database already contains data, nothing is inserted. Since the catalog shows 6 computers per page, the sample data fills two pages.
+
+`uploads/` is not stored in Git, and neither is `node_modules/`. Both are listed in `.gitignore`. The application creates `uploads/` automatically.
+
+To start again from the sample data, stop the application, drop the `pc_parts_catalog` database (for example with `mongosh pc_parts_catalog --eval "db.dropDatabase()"`), delete the contents of `uploads/` and start the application again.
 
 ### Application screenshots
 
-| Catalog with pagination | Search and category filter |
-| --- | --- |
-| ![Catalog](docs/screenshots/catalog.png) | ![Search and filter](docs/screenshots/search-filter.png) |
+**Main page: search, category filter and pagination**
 
-| Computer detail with components | Create / edit computer |
-| --- | --- |
-| ![Computer detail](docs/screenshots/computer-detail.png) | ![Computer form](docs/screenshots/computer-form.png) |
+![Main page: search bar, category filter and result counter](docs/screenshots/search-filter.png)
 
-| Validation error page | Confirmation page |
-| --- | --- |
-| ![Validation error](docs/screenshots/validation-error.png) | ![Confirmation](docs/screenshots/confirmation.png) |
+![Main page: computer cards and pagination links](docs/screenshots/catalog.png)
 
-| Component detail | Create / edit component |
-| --- | --- |
-| ![Component detail](docs/screenshots/component-detail.png) | ![Component form](docs/screenshots/component-form.png) |
+**Computer detail page with its components**
+
+![Computer detail page with its components](docs/screenshots/computer-detail.png)
+
+**Create and edit forms** (the same form is reused for creating and editing)
+
+![Create computer form](docs/screenshots/computer-form.png)
+
+![Edit component form](docs/screenshots/component-form.png)
+
+**Confirmation pages**
+
+![Confirmation after creating a computer](docs/screenshots/confirmation.png)
+
+![Confirmation after deleting a computer](docs/screenshots/deletion-confirmation.png)
 
 ### Routes
 
@@ -168,9 +263,11 @@ The application is fully functional on the server side: data lives in MongoDB, i
 | `POST` | `/computers/:computerId/components/:componentId/delete` | Delete a component |
 | `GET` | `/uploads/:filename` | Serve an uploaded image |
 
+`/` redirects to `/computers`.
+
 ### Validation rules
 
-The browser validates every field it can with HTML attributes. The server repeats **all** validations, so invalid data is rejected even if the browser checks are removed. Any error is shown on a dedicated error page with a message and a button that goes back to the right form.
+The browser validates every field it can with HTML attributes. The server repeats **all** validations, so invalid data is rejected even if the browser checks are removed.
 
 | Field | Rule |
 | --- | --- |
@@ -181,13 +278,20 @@ The browser validates every field it can with HTML attributes. The server repeat
 | Price | Non-negative number with up to two decimals |
 | Release date | Valid calendar date (computers) |
 | Used | Boolean (computers) |
-| Image | PNG, JPEG or WebP, up to 5 MB. The file content is checked, not only its declared type |
+| Image | Required when creating. PNG, JPEG or WebP, up to 5 MB. The file content is checked, not only its declared type |
+
+### Error and confirmation pages
+
+Both pages reuse a single template each and share the header and footer partials with the rest of the site.
+
+- **Confirmation page** (`confirmation.mustache`): shown after creating, editing or deleting a computer or a component. It states what happened and links to the item or back to the catalog. Deletions are shown in red.
+- **Error page** (`error.mustache`): shown when a form is invalid (empty or incorrect fields, duplicated name), when an identifier is malformed, when an item does not exist, when an image is rejected and when the database is unavailable. It explains the problem and includes a button that goes back to the right page, for example to the form that was being filled.
 
 ### Project structure and file descriptions
 
 ```text
 webapp09/
-├── data/                       Seed images copied to uploads/ on first start
+├── data/                       Sample images copied to uploads/ on first start
 ├── public/
 │   ├── css/Style.css
 │   └── images/                 Static images (favicon, fallback image)
@@ -204,6 +308,7 @@ webapp09/
 │   │   └── validation.js
 │   ├── computers/computer.routes.js
 │   └── components/component.routes.js
+├── test/                       Automated tests
 ├── views/
 │   ├── partials/               Shared header and footer
 │   └── pc-parts/               Page templates
@@ -220,14 +325,15 @@ webapp09/
 | `src/app.js` | Creates the Express app, configures Mustache, static files and routers, handles 404 and unexpected errors, connects to MongoDB, seeds the data and starts the server |
 | `src/config/catalog.js` | Categories, page size and validation limits |
 | `src/database/pc-parts-db.js` | Connects once to MongoDB and exposes the `computers` and `components` collections |
-| `src/database/seed-if-empty.js` | Inserts the example computers and components and copies `data/` images to `uploads/` when the database is empty |
-| `src/lib/validation.js` | Server-side validation of computers and components, and helpers for name-duplicate and search filters |
+| `src/database/seed-if-empty.js` | Inserts the example computers and components and copies the `data/` images to `uploads/` when the database is empty |
+| `src/lib/validation.js` | Server-side validation of computers and components, and helpers for duplicate-name and search filters |
 | `src/lib/images.js` | Image upload with multer, content check, random stored names, serving, and removal of unused images |
 | `src/lib/http.js` | Helpers that render the confirmation and error pages and check the database connection |
 | `src/lib/catalog.js` | Shared lookup (computer by ID) and presentation of documents for the views |
 | `src/computers/computer.routes.js` | Catalog listing with search, filter and pagination, plus computer detail, create, edit and delete |
 | `src/components/component.routes.js` | Component detail, create, edit and delete, always scoped to a computer |
-| `views/partials/header.mustache`, `footer.mustache` | Header with navigation and footer, reused by every page |
+| `test/*.test.js` | Automated tests (`npm test`) for the seed and for the deletion confirmations |
+| `views/partials/header.mustache`, `views/partials/footer.mustache` | Header with navigation and footer, reused by every page |
 | `views/pc-parts/index.mustache` | Main page: search form, category filter, grid and pagination |
 | `views/pc-parts/details.mustache` | Computer detail page with its components |
 | `views/pc-parts/create.mustache` | Computer form, reused for creating and editing |
@@ -236,6 +342,17 @@ webapp09/
 | `views/pc-parts/confirmation.mustache` | Confirmation page for created, updated and deleted items |
 | `views/pc-parts/error.mustache` | Error page for form errors and other failures |
 | `public/css/Style.css` | Site styles |
+| `public/images/` | Static images: favicon and fallback image shown when an image is missing |
+| `data/` | Sample images used by the seed |
+| `.env.example` | Example of the optional environment variables |
+
+### Automated tests
+
+```sh
+npm test
+```
+
+The tests use in-memory mocks, so they do not need MongoDB.
 
 ### Demo script
 
@@ -263,23 +380,23 @@ REPLACE: paragraph describing the tasks carried out in Practice 2.
 
 Most relevant commits:
 
-1. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-2. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-3. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-4. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-5. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
+1. REPLACE
 
+Files with most participation:
+
+1. REPLACE
+
+#### Yoel Alejandro Adán González
 
 REPLACE: paragraph describing the tasks carried out in Practice 2.
 
 Most relevant commits:
 
-1. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-2. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-3. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-4. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-5. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
+1. REPLACE
 
+Files with most participation:
+
+1. REPLACE
 
 #### Alvaro Pastrana Lopez
 
@@ -287,10 +404,14 @@ REPLACE: paragraph describing the tasks carried out in Practice 2.
 
 Most relevant commits:
 
-1. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-2. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-3. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-4. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
-5. [`REPLACE`](https://github.com/CodeURJC-FW-2026-27/webapp09/commit/REPLACE) — description
+1. REPLACE
+
+Files with most participation:
+
+1. REPLACE
+
+## License
+
+Source code released under the [Apache License 2.0](LICENSE).
 
 
