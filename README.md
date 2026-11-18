@@ -37,7 +37,7 @@ Start the application:
 npm start
 ```
 
-Open [http://localhost:3001/computers](http://localhost:3001/computers). On first startup, an empty catalog is populated with nine example computers and their components. Images in `data/` are copied to `uploads/` using managed image names.
+Open [http://localhost:3001/computers](http://localhost:3001/computers). On first startup, an empty catalog is populated with nine example computers and their components. Images in `images/` are copied to `uploads/` using managed image names.
 
 The MongoDB connection URI defaults to `mongodb://127.0.0.1:27017/`. Set `MONGODB_URI` to use a different server. The database name is `pc_parts_catalog`; the HTTP port defaults to `3001` and can be changed with `PORT`.
 

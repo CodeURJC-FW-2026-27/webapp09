@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { UPLOAD_DIRECTORY } from '../lib/images.js';
 
 const projectDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const dataDirectory = path.join(projectDirectory, 'data');
+const dataDirectory = path.join(projectDirectory, 'images');
 
 const computerExamples = [
   { name: 'Apex Gaming Tower', brand: 'Northstar Builds', type: 'High-End Computer', description: 'A powerful gaming desktop designed for high frame rates, detailed graphics, and quiet cooling during long sessions.', price: 2499.99, releaseDate: '2026-03-15', used: false, imageIndex: 0 },

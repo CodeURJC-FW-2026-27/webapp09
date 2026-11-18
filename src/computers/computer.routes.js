@@ -146,6 +146,7 @@ router.post('/:id/delete', async (req, res) => {
     return renderConfirmation(res, {
       title: 'Computer deleted',
       message: `${existing.name} and its ${componentResult.deletedCount} ${componentLabel} were removed from the catalog.`,
+      variant: 'danger',
       primaryUrl: '/computers',
       primaryLabel: 'Back to catalog'
     });

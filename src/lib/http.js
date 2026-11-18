@@ -20,14 +20,15 @@ export function renderError(res, { status = 500, title = 'Request error', messag
 /**
  * Render the shared confirmation page.
  * @param {import('express').Response} res
- * @param {{title: string, message: string, primaryUrl: string, primaryLabel: string, secondaryUrl?: string, secondaryLabel?: string}} options
+ * @param {{title: string, message: string, primaryUrl: string, primaryLabel: string, secondaryUrl?: string, secondaryLabel?: string, variant?: 'success' | 'danger'}} options
  * @returns {import('express').Response}
  */
-export function renderConfirmation(res, { title, message, primaryUrl, primaryLabel, secondaryUrl = '/computers', secondaryLabel = 'Back to catalog' }) {
+export function renderConfirmation(res, { title, message, primaryUrl, primaryLabel, secondaryUrl = '/computers', secondaryLabel = 'Back to catalog', variant = 'success' }) {
   return res.status(200).render('pc-parts/confirmation.mustache', {
     pageTitle: title,
     pageHeading: title,
     message,
+    variant,
     primaryUrl,
     primaryLabel,
     secondaryUrl,

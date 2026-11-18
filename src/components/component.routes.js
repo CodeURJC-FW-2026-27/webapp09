@@ -115,7 +115,13 @@ router.post('/:componentId/delete', async (req, res) => {
     const result = await db.components.deleteOne({ _id: id, computerId: computer._id });
     if (!result.deletedCount) return renderError(res, { status: 404, title: 'Component not found', message: 'The requested component could not be found in this computer.' });
     await removeImageIfUnused(db, existing.image);
-    return res.redirect(303, `/computers/${computer._id}`);
+    return renderConfirmation(res, {
+      title: 'Component deleted',
+      message: `${existing.name} was removed from ${computer.name}.`,
+      variant: 'danger',
+      primaryUrl: `/computers/${computer._id}`,
+      primaryLabel: 'Back to computer'
+    });
   } catch (error) { return renderDatabaseError(res, error, 'Component catalog'); }
 });
 
